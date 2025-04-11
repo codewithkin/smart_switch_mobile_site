@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
 import Navbar from "@/components/shared/Navbar";
 import MobileNavbar from "@/components/shared/MobileNavbar";
- 
-const satoshi = localFont({ src: './Satoshi-Variable.woff2' })
+
+const satoshi = localFont({ src: "./Satoshi-Variable.woff2" });
 
 export const metadata: Metadata = {
   title: "Smart Switch Mobile | Buy Smartphones in Mutare, Zimbabwe",
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     title: "Smart Switch Mobile | Best Mobile Phone Deals in Mutare",
     description:
       "Shop the latest smartphones from Smart Switch Mobile – iPhones, Samsungs, and more, all at great prices. Trusted by customers across Mutare, Zimbabwe.",
-    url: "https://smartswitchmobile.co.zw", 
+    url: "https://smartswitchmobile.co.zw",
     siteName: "Smart Switch Mobile",
     locale: "en_ZW",
     type: "website",
     images: [
       {
-        url: "/og-image.jpg", 
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Smartphones at Smart Switch Mobile",
@@ -51,7 +51,6 @@ export const metadata: Metadata = {
   publisher: "Smart Switch Mobile",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,9 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${satoshi.className} antialiased`}
-      >
+      <body className={`${satoshi.className} antialiased`}>
         <Navbar />
         <MobileNavbar />
         {children}
