@@ -78,8 +78,8 @@ function Header() {
       </article>
 
       {/* Phone images */}
-      <article className="md:w-1/2 w-fit flex flex-col justify-center items-center">
-        <article className="bg-gradient-to-r min-h-[400px] md:min-h-auto w-fit from-sky-300 to-blue-700 flex h-full rounded-md justify-center items-center">
+      <article className="md:w-1/2 w-fit flex flex-col justify-center items-center bg-gradient-to-r from-sky-300 to-blue-700 rounded-md md:mr-32 mx-4">
+        <article className="min-h-[400px] md:min-h-auto w-fit flex h-full justify-center items-center">
           <Carousel className="w-fit max-w-xs">
             <CarouselContent>
               {phoneImages.map((phone: PhoneImage, index: number) => (
