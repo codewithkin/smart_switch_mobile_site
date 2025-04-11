@@ -28,7 +28,7 @@ export default function Navbar() {
         y: 1,
         opacity: 1
     }}
-    className='p-4 md:px-12 shadow-sm border-b flex justify-between items-center bg-white'>
+    className='p-4 md:px-12 shadow-sm border-b md:flex justify-between items-center bg-white hidden'>
         <h2 className='text-xl font-semibold'>Smart Switch Mobile</h2>
 
         {/* Links */}
