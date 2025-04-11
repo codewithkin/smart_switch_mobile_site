@@ -112,6 +112,12 @@
   --sidebar-ring: oklch(0.556 0 0);
 } */
 
+@layer components {
+  .section {
+    @apply px-4 md:px-32 flex flex-col justify-center items-center text-center gap-8
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
