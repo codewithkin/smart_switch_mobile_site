@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local'
+import Navbar from "@/components/shared/Navbar";
  
 const satoshi = localFont({ src: './Satoshi-Variable.woff2' })
 
@@ -60,6 +61,7 @@ export default function RootLayout({
       <body
         className={`${satoshi.className} antialiased`}
       >
+        <Navbar />
         {children}
       </body>
     </html>
