@@ -116,6 +116,10 @@
   .section {
     @apply px-4 md:px-32 flex flex-col justify-center items-center text-center gap-8
   }
+
+  .heading {
+    @apply text-3xl font-semibold
+  }
 }
 
 @layer base {
