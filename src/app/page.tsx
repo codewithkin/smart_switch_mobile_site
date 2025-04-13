@@ -4,9 +4,10 @@ import NewArrivals from "@/components/home/NewArrivals";
 function Home() {
   return (
     <>
-    <Header />
-    <NewArrivals /></>
-  )
+      <Header />
+      <NewArrivals />
+    </>
+  );
 }
 
 export default Home;

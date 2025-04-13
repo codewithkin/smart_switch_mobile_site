@@ -6,7 +6,8 @@ export const demoProducts: Product[] = [
     name: "iPhone 15 Pro Max",
     slug: "iphone-15-pro-max",
     brand: "Apple",
-    description: "Apple’s most advanced iPhone ever, with A17 Pro chip and stunning titanium build.",
+    description:
+      "Apple’s most advanced iPhone ever, with A17 Pro chip and stunning titanium build.",
     price: 1799,
     discountPrice: 1649,
     inStock: 8,
@@ -26,7 +27,8 @@ export const demoProducts: Product[] = [
     name: "Samsung Galaxy S24 Ultra",
     slug: "samsung-galaxy-s24-ultra",
     brand: "Samsung",
-    description: "Capture everything with a 200MP camera and AI-powered Galaxy experience.",
+    description:
+      "Capture everything with a 200MP camera and AI-powered Galaxy experience.",
     price: 1549,
     discountPrice: 1399,
     inStock: 10,
@@ -46,7 +48,8 @@ export const demoProducts: Product[] = [
     name: "iPhone 13",
     slug: "iphone-13",
     brand: "Apple",
-    description: "Still a fan favorite. Smooth, fast, and reliable — perfect for everyday users.",
+    description:
+      "Still a fan favorite. Smooth, fast, and reliable — perfect for everyday users.",
     price: 899,
     inStock: 6,
     images: ["/products/iphone-13.png"],
@@ -65,7 +68,8 @@ export const demoProducts: Product[] = [
     name: "Samsung Galaxy A54",
     slug: "samsung-galaxy-a54",
     brand: "Samsung",
-    description: "Affordable and powerful — ideal for anyone who wants great features on a budget.",
+    description:
+      "Affordable and powerful — ideal for anyone who wants great features on a budget.",
     price: 449,
     inStock: 15,
     images: ["/products/galaxy-a54.png"],
@@ -84,7 +88,8 @@ export const demoProducts: Product[] = [
     name: "Xiaomi Redmi Note 13 Pro",
     slug: "xiaomi-redmi-note-13-pro",
     brand: "Xiaomi",
-    description: "High-res camera, gorgeous display — all at a wallet-friendly price.",
+    description:
+      "High-res camera, gorgeous display — all at a wallet-friendly price.",
     price: 349,
     inStock: 12,
     images: ["/products/redmi-note-13-pro.png"],
@@ -103,7 +108,8 @@ export const demoProducts: Product[] = [
     name: "iPhone SE (3rd Gen)",
     slug: "iphone-se-3rd-gen",
     brand: "Apple",
-    description: "A compact classic with a modern chip. Great value for the Apple experience.",
+    description:
+      "A compact classic with a modern chip. Great value for the Apple experience.",
     price: 499,
     inStock: 7,
     images: ["/products/iphone-se.png"],
@@ -122,7 +128,8 @@ export const demoProducts: Product[] = [
     name: "Infinix Zero 30",
     slug: "infinix-zero-30",
     brand: "Infinix",
-    description: "Sleek, affordable, and feature-packed. For those who want a premium vibe without the price.",
+    description:
+      "Sleek, affordable, and feature-packed. For those who want a premium vibe without the price.",
     price: 299,
     inStock: 20,
     images: ["/products/infinix-zero-30.png"],
@@ -141,7 +148,8 @@ export const demoProducts: Product[] = [
     name: "Samsung Galaxy Z Fold 5",
     slug: "samsung-galaxy-z-fold-5",
     brand: "Samsung",
-    description: "Fold it, flex it, flip out over it. The future of phones is here.",
+    description:
+      "Fold it, flex it, flip out over it. The future of phones is here.",
     price: 2299,
     discountPrice: 2099,
     inStock: 4,
@@ -161,7 +169,8 @@ export const demoProducts: Product[] = [
     name: "Google Pixel 8 Pro",
     slug: "google-pixel-8-pro",
     brand: "Google",
-    description: "Clean Android, superb camera, and a display that makes colors pop. Google’s best yet.",
+    description:
+      "Clean Android, superb camera, and a display that makes colors pop. Google’s best yet.",
     price: 1449,
     inStock: 5,
     images: ["/products/pixel-8-pro.png"],
@@ -180,7 +189,8 @@ export const demoProducts: Product[] = [
     name: "Huawei Nova 11 Pro",
     slug: "huawei-nova-11-pro",
     brand: "Huawei",
-    description: "Smooth performance, sharp cameras, and gorgeous build. A solid all-rounder.",
+    description:
+      "Smooth performance, sharp cameras, and gorgeous build. A solid all-rounder.",
     price: 699,
     inStock: 11,
     images: ["/products/huawei-nova-11-pro.png"],
@@ -199,7 +209,8 @@ export const demoProducts: Product[] = [
     name: "Tecno Camon 20 Premier",
     slug: "tecno-camon-20-premier",
     brand: "Tecno",
-    description: "Built for mobile photography lovers — big battery, bold design, and smooth visuals.",
+    description:
+      "Built for mobile photography lovers — big battery, bold design, and smooth visuals.",
     price: 379,
     inStock: 9,
     images: ["/products/tecno-camon-20-premier.png"],
@@ -218,7 +229,8 @@ export const demoProducts: Product[] = [
     name: "Nokia G60 5G",
     slug: "nokia-g60-5g",
     brand: "Nokia",
-    description: "Classic Nokia reliability meets modern 5G speed — it’s built to last.",
+    description:
+      "Classic Nokia reliability meets modern 5G speed — it’s built to last.",
     price: 299,
     inStock: 14,
     images: ["/products/nokia-g60-5g.png"],
@@ -237,7 +249,8 @@ export const demoProducts: Product[] = [
     name: "iPhone 12 Pro",
     slug: "iphone-12-pro",
     brand: "Apple",
-    description: "Flagship power from a couple years back — still slick, still fast, still worth it.",
+    description:
+      "Flagship power from a couple years back — still slick, still fast, still worth it.",
     price: 1099,
     discountPrice: 999,
     inStock: 6,
@@ -257,7 +270,8 @@ export const demoProducts: Product[] = [
     name: "Samsung Galaxy A14",
     slug: "samsung-galaxy-a14",
     brand: "Samsung",
-    description: "Entry-level doesn’t mean boring. Great performance with all the essentials you need.",
+    description:
+      "Entry-level doesn’t mean boring. Great performance with all the essentials you need.",
     price: 199,
     inStock: 18,
     images: ["/products/galaxy-a14.png"],
@@ -276,7 +290,8 @@ export const demoProducts: Product[] = [
     name: "itel S23 Plus",
     slug: "itel-s23-plus",
     brand: "itel",
-    description: "Budget-friendly with a beautiful curved AMOLED display and impressive battery life.",
+    description:
+      "Budget-friendly with a beautiful curved AMOLED display and impressive battery life.",
     price: 169,
     inStock: 22,
     images: ["/products/itel-s23-plus.png"],
@@ -295,7 +310,8 @@ export const demoProducts: Product[] = [
     name: "OnePlus 12",
     slug: "oneplus-12",
     brand: "OnePlus",
-    description: "Premium speed, elite build, and OxygenOS fluidity — the enthusiast’s dream phone.",
+    description:
+      "Premium speed, elite build, and OxygenOS fluidity — the enthusiast’s dream phone.",
     price: 1199,
     inStock: 7,
     images: ["/products/oneplus-12.png"],
@@ -314,7 +330,8 @@ export const demoProducts: Product[] = [
     name: "Huawei Y9a",
     slug: "huawei-y9a",
     brand: "Huawei",
-    description: "Big screen, long battery, and solid performance in a stylish frame.",
+    description:
+      "Big screen, long battery, and solid performance in a stylish frame.",
     price: 269,
     inStock: 16,
     images: ["/products/huawei-y9a.png"],
@@ -333,7 +350,8 @@ export const demoProducts: Product[] = [
     name: "Samsung Galaxy M14",
     slug: "samsung-galaxy-m14",
     brand: "Samsung",
-    description: "Massive battery, clean interface — perfect for students or backup use.",
+    description:
+      "Massive battery, clean interface — perfect for students or backup use.",
     price: 179,
     inStock: 20,
     images: ["/products/galaxy-m14.png"],
@@ -352,7 +370,8 @@ export const demoProducts: Product[] = [
     name: "Xiaomi Poco X5 Pro",
     slug: "xiaomi-poco-x5-pro",
     brand: "Xiaomi",
-    description: "Gaming-ready, media-savvy, and surprisingly affordable — a fan favorite for a reason.",
+    description:
+      "Gaming-ready, media-savvy, and surprisingly affordable — a fan favorite for a reason.",
     price: 379,
     inStock: 13,
     images: ["/products/poco-x5-pro.png"],
@@ -371,7 +390,8 @@ export const demoProducts: Product[] = [
     name: "Motorola Edge 40",
     slug: "motorola-edge-40",
     brand: "Motorola",
-    description: "Slim, splash-resistant, and packed with features. A modern take on a classic brand.",
+    description:
+      "Slim, splash-resistant, and packed with features. A modern take on a classic brand.",
     price: 499,
     inStock: 8,
     images: ["/products/motorola-edge-40.png"],
@@ -384,5 +404,5 @@ export const demoProducts: Product[] = [
     isNewArrival: true,
     createdAt: new Date(),
     updatedAt: new Date(),
-  }
+  },
 ];
