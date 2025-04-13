@@ -25,7 +25,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         // Redirect to product slug
         router.push(`/shop/${product.slug}`);
       }}
-      className="w-full sm:w-[300px] bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:cursor-pointer"
+      className="w-full sm:w-[300px] bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:cursor-pointer py-0"
     >
       <CardHeader className="relative pb-4 pt-4">
         {/* Product Image */}
@@ -43,16 +43,16 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
 
         {/* Product Description */}
-        <p className="text-sm text-gray-500">{product.description}</p>
+        <p className="text-sm text-slate-500">{product.description}</p>
 
         {/* Product Price */}
         <div className="flex items-center justify-between">
-          <span className="text-lg font-semibold text-green-600">
+          <span className="text-2xl font-semibold text-green-600">
             ${product.discountPrice ? product.discountPrice : product.price}
           </span>
           {/* Display Sale Badge if Discount Available */}
           {product.discountPrice && (
-            <span className="text-sm text-red-500 line-through">
+            <span className="text-md text-red-500 line-through">
               ${product.price}
             </span>
           )}
