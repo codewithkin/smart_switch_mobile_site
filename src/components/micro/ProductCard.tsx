@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,14 +9,24 @@ import {
 } from "@/components/ui/card";
 import { Product } from "@/types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  // Router for redirects
+  const router = useRouter();
+
   return (
-    <Card className="w-full sm:w-[300px] bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+    <Card
+      onClick={() => {
+        // Redirect to product slug
+        router.push(`/shop/${product.slug}`);
+      }}
+      className="w-full sm:w-[300px] bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:cursor-pointer"
+    >
       <CardHeader className="relative pb-4 pt-4">
         {/* Product Image */}
         <Image
