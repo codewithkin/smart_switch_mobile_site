@@ -14,7 +14,7 @@ function NewArrivals() {
         </p>
       </article>
 
-      <article className="grid md:grid-cols-4 lg:grid-cols-5 sm:grid-cols-2 items-center justify-center gap-4 md:gap-16">
+      <article className="grid md:grid-cols-3 xl:grid-cols-5 sm:grid-cols-2 items-center justify-center gap-4 md:gap-16">
         {demoProducts.slice(0, 5).map((product: Product, index: number) => (
           <ProductCard key={index} product={product} />
         ))}
