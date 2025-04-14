@@ -3,6 +3,21 @@ import { demoProducts } from "@/data/demoProducts";
 import { Product } from "@/types";
 import ProductCard from "../micro/ProductCard";
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
 function NewArrivals() {
   return (
     <section className="section">
@@ -14,11 +29,22 @@ function NewArrivals() {
         </p>
       </article>
 
-      <article className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 items-center justify-center gap-4 md:gap-16">
+      <Swiper
+        className="w-full"
+        modules={[Navigation, Pagination, A11y]}
+        spaceBetween={20}
+        navigation
+        pagination={{ clickable: true, dynamicBullets: true }}
+        centeredSlides={true}
+        slidesPerView="auto"
+        loop={true}
+      >
         {demoProducts.slice(0, 5).map((product: Product, index: number) => (
-          <ProductCard key={index} product={product} />
+          <SwiperSlide key={index} className="!w-[280px] sm:!w-[300px]">
+            <ProductCard product={product} />
+          </SwiperSlide>
         ))}
-      </article>
+      </Swiper>
     </section>
   );
 }
