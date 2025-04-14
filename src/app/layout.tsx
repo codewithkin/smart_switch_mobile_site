@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import Navbar from "@/components/shared/Navbar";
 import MobileNavbar from "@/components/shared/MobileNavbar";
+import Footer from "@/components/shared/Footer";
 
 const satoshi = localFont({ src: "./Satoshi-Variable.woff2" });
 
@@ -62,6 +63,7 @@ export default function RootLayout({
         <Navbar />
         <MobileNavbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
