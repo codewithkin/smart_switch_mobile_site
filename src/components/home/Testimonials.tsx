@@ -76,8 +76,6 @@ function Testimonials() {
       </article>
 
       <article className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
-        {/* IMPORTANT !!!! */}
-        {/* TODO: Add testimonials that show when card is hovered over */}
         {testimonials.map((testimonial: Testimonial, index: number) => (
           <Card
             className="border-2 border-sky-400 transition-all duration-300 hover:shadow-2xl hover:border-purple-400"
