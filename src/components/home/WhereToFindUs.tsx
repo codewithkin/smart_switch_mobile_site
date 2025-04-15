@@ -31,7 +31,7 @@ function WhereToFindUs() {
         </p>
         <Button variant="secondary" asChild>
           <Link
-            href="https://www.google.com/maps/place/Mutare,+Zimbabwe/"
+            href="https://maps.app.goo.gl/dgM4UwWwHBqvXHyB8"
             target="_blank"
             rel="noopener noreferrer"
           >
