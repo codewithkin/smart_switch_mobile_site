@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import axios from "axios";
 
 function SendMessageForm() {
   // Track the loading state of the form
@@ -24,9 +25,9 @@ function SendMessageForm() {
       setSendingMessage(true);
 
       // Make a request to the message send endpoint
-      // const res = await axios.post("/api/message", {name, email, message});
+      const res = await axios.post("/api/message", {name, email, message});
 
-      // console.log("Data returned after message sent: ", res.data);
+      console.log("Data returned after message sent: ", res.data);
 
       toast.success("Thanks for contacting us, we'll reply via email in up to 12 hours")
     } catch (e) {
@@ -84,7 +85,7 @@ function SendMessageForm() {
         <Button
           type="submit"
           disabled={sendingMessage}
-          className="sm:col-span-2"
+          className="sm:col-span-2 items-center"
         >
           {sendingMessage && <Loader2 className="animate-spin" />}
           {sendingMessage ? "Sending Message..." : "Send Message"}
