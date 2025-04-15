@@ -1,3 +1,4 @@
+import FAQ from "@/components/home/FAQ";
 import Header from "@/components/home/Header";
 import NewArrivals from "@/components/home/NewArrivals";
 import SendMessageForm from "@/components/home/SendMessageForm";
@@ -14,6 +15,7 @@ function Home() {
       <Testimonials />
       <WhereToFindUs />
       <SendMessageForm />
+      <FAQ />
     </>
   );
 }
