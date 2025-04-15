@@ -1,4 +1,5 @@
 import FAQ from "@/components/home/FAQ";
+import FinalCTA from "@/components/home/FinalCTA";
 import Header from "@/components/home/Header";
 import NewArrivals from "@/components/home/NewArrivals";
 import SendMessageForm from "@/components/home/SendMessageForm";
@@ -16,6 +17,7 @@ function Home() {
       <WhereToFindUs />
       <SendMessageForm />
       <FAQ />
+      <FinalCTA />
     </>
   );
 }
