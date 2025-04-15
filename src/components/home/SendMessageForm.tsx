@@ -1,9 +1,10 @@
 "use client";
-import { FormEvent, FormEventHandler, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 function SendMessageForm() {
   // Track the loading state of the form
@@ -27,7 +28,7 @@ function SendMessageForm() {
 
       // console.log("Data returned after message sent: ", res.data);
 
-      // toast.success("Thanks for contacting us, we'll reply via email in up to 12 hours")
+      toast.success("Thanks for contacting us, we'll reply via email in up to 12 hours")
     } catch (e) {
       console.log("An error occured while sending message...");
 
