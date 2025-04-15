@@ -28,7 +28,7 @@ function Footer() {
     email: "support@smartswitch.co.zw",
   };
 
-const socialLinks = [
+  const socialLinks = [
     {
       name: "WhatsApp",
       icon: FaWhatsapp,
@@ -100,13 +100,20 @@ const socialLinks = [
 
         {/* Social media links */}
         <article className="flex gap-2 items-center">
-            {
-                socialLinks.map((socialLink: {name: string, icon: typeof FaFacebook, href: string}, index: number) => (
-                    <Link key={index} href={socialLink.href}>
-                        <socialLink.icon size={24} className="w-4 h-4" />
-                    </Link>
-                ))
-            }
+          {socialLinks.map(
+            (
+              socialLink: {
+                name: string;
+                icon: typeof FaFacebook;
+                href: string;
+              },
+              index: number,
+            ) => (
+              <Link key={index} href={socialLink.href}>
+                <socialLink.icon size={24} className="w-4 h-4" />
+              </Link>
+            ),
+          )}
         </article>
       </article>
     </footer>
