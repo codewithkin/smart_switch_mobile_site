@@ -25,11 +25,13 @@ function SendMessageForm() {
       setSendingMessage(true);
 
       // Make a request to the message send endpoint
-      const res = await axios.post("/api/message", {name, email, message});
+      const res = await axios.post("/api/message", { name, email, message });
 
       console.log("Data returned after message sent: ", res.data);
 
-      toast.success("Thanks for contacting us, we'll reply via email in up to 12 hours")
+      toast.success(
+        "Thanks for contacting us, we'll reply via email in up to 12 hours",
+      );
     } catch (e) {
       console.log("An error occured while sending message...");
 
