@@ -75,29 +75,32 @@ function Testimonials() {
         </Button>
       </article>
 
-      <article className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
+      <article className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 p-4 w-full">
         {testimonials.map((testimonial: Testimonial, index: number) => (
           <Card
-            className="border-2 border-sky-400 transition-all duration-300 hover:shadow-2xl hover:border-purple-400"
+            className="border-2 flex flex-row items-center border-sky-400 transition-all duration-300 hover:shadow-2xl hover:border-purple-400"
             key={index}
           >
-            <CardHeader className="flex flex-col gap-2 items-center justify-center">
-              <Image
-                src={testimonial.image || ""}
-                alt={testimonial.name}
-                width={100}
-                height={100}
-                className="rounded-full"
-              />
-
-              <article className="flex flex-col justify-center items-center text-center">
-                <CardTitle className="text-xl">{testimonial.name}</CardTitle>
-                <p>{testimonial.rating}</p>
-              </article>
-            </CardHeader>
-            <CardContent>
-              <p className="text-slate-500 text-sm">{testimonial.quote}</p>
-            </CardContent>
+            <Image
+              src={testimonial.image || ""}
+              alt={testimonial.name}
+              width={200}
+              height={200}
+              className="rounded-md m-2"
+            />
+            <article>
+              <CardHeader className="flex flex-col gap-2 justify-center">
+                <article className="flex flex-col">
+                  <CardTitle className="text-xl">{testimonial.name}</CardTitle>
+                  <p className="text-start">{testimonial.rating}</p>
+                </article>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-500 text-sm text-start">
+                  {testimonial.quote}
+                </p>
+              </CardContent>
+            </article>
           </Card>
         ))}
       </article>
