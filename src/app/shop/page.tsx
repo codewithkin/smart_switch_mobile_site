@@ -1,17 +1,22 @@
 "use client";
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Product } from "@/types";
 import ProductCard from "@/components/micro/ProductCard";
+
 import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectItem,
 } from "@/components/ui/select";
 
+// Filter Type
 type FilterType = "category" | "price" | null;
 
 const fetchProducts = async (
@@ -90,43 +95,52 @@ function ShopPage() {
   };
 
   return (
-    <section className="px-4 md:px-32 min-h-screen flex flex-col justify-center items-center">
-      <h2 className="heading">Shop Products</h2>
+    <section className="px-4 md:px-32 min-h-screen flex flex-col items-center">
+      <h2 className="heading mt-6">Shop Products</h2>
 
       {/* Filters */}
-      <div className="flex flex-col md:flex-row gap-4 mb-6 w-full max-w-3xl">
+      <div className="flex flex-col md:flex-row gap-4 my-6 w-full max-w-3xl justify-center items-center">
         {/* Category Filter */}
         <Select onValueChange={handleCategoryChange}>
-          <SelectTrigger>
-            <SelectValue placeholder="All Categories" />
+          <SelectTrigger className="w-full md:w-[220px]">
+            <SelectValue placeholder="Filter by Category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Categories</SelectItem>
-            <SelectItem value="phones">Phones</SelectItem>
-            <SelectItem value="laptops">Laptops</SelectItem>
-            <SelectItem value="accessories">Accessories</SelectItem>
+            <SelectGroup>
+              <SelectLabel>Categories</SelectLabel>
+              <SelectItem value="phones">Phones</SelectItem>
+              <SelectItem value="laptops">Laptops</SelectItem>
+              <SelectItem value="accessories">Accessories</SelectItem>
+            </SelectGroup>
           </SelectContent>
         </Select>
 
         {/* Price Filter */}
         <Select onValueChange={handlePriceChange}>
-          <SelectTrigger>
-            <SelectValue placeholder="All Price Ranges" />
+          <SelectTrigger className="w-full md:w-[220px]">
+            <SelectValue placeholder="Filter by Price" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Prices</SelectItem>
-            <SelectItem value="under_100">Under $100</SelectItem>
-            <SelectItem value="100_200">$100 - $200</SelectItem>
-            <SelectItem value="200_400">$200 - $400</SelectItem>
-            <SelectItem value="400_800">$400 - $800</SelectItem>
-            <SelectItem value="flagship">$800 - $1,000</SelectItem>
+            <SelectGroup>
+              <SelectLabel>Price Ranges</SelectLabel>
+              <SelectItem value="under_100">Under $100</SelectItem>
+              <SelectItem value="100_200">$100 - $200</SelectItem>
+              <SelectItem value="200_400">$200 - $400</SelectItem>
+              <SelectItem value="400_800">$400 - $800</SelectItem>
+              <SelectItem value="flagship">$800 - $1,000</SelectItem>
+            </SelectGroup>
           </SelectContent>
         </Select>
       </div>
 
       {/* Content */}
       {isLoading && <p>Loading products...</p>}
-      {error && <p>Error loading products.</p>}
+      {error && (
+        <p className="text-red-500">
+          Failed to load products:{" "}
+          {error instanceof Error ? error.message : "Unknown error"}
+        </p>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
         {products?.map((product: Product) => (
