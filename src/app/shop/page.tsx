@@ -47,6 +47,9 @@ const fetchProducts = async (
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/`,
   );
+
+  console.log("Data from axios: ", data);
+
   return data;
 };
 
@@ -61,7 +64,7 @@ function ShopPage() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["products", filterType, filterValue],
+    queryKey: ["products"],
     queryFn: () => fetchProducts(filterType, filterValue),
   });
 
