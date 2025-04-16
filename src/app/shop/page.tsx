@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -37,8 +38,9 @@ function ShopPage() {
     data: products,
     isLoading,
     error,
-  } = useQuery(["products", filters], () => fetchProducts(filters), {
-    keepPreviousData: true, // Ensure smooth transition when filters change
+  } = useQuery({
+    queryKey: ["products"], 
+    queryFn: async () => await fetchProducts(filters), 
   });
 
   // Handle dynamic heading
