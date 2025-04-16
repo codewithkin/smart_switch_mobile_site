@@ -30,8 +30,14 @@ function MeetTheTeam() {
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col items-center space-y-2">
             <Avatar className="w-16 h-16">
-              <AvatarFallback className="w-16 h-16">{member.name.charAt(0)}</AvatarFallback>
-              <AvatarImage className="w-16 h-16" src={member.image || ""} alt={member.name} />
+              <AvatarFallback className="w-16 h-16">
+                {member.name.charAt(0)}
+              </AvatarFallback>
+              <AvatarImage
+                className="w-16 h-16"
+                src={member.image || ""}
+                alt={member.name}
+              />
             </Avatar>
             <h3 className="font-semibold text-lg">{member.name}</h3>
             <p className="text-slate-500">{member.role}</p>
