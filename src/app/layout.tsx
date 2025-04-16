@@ -6,6 +6,7 @@ import Navbar from "@/components/shared/Navbar";
 import MobileNavbar from "@/components/shared/MobileNavbar";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "sonner";
+import QueryClientProviderWrapper from "@/providers/QueryClientProviderWrapper";
 
 const satoshi = localFont({ src: "./Satoshi-Variable.woff2" });
 
@@ -64,7 +65,7 @@ export default function RootLayout({
       <body className={`${satoshi.className} antialiased`}>
         <Navbar />
         <MobileNavbar />
-        {children}
+        <QueryClientProviderWrapper>{children}</QueryClientProviderWrapper>
         <Footer />
         <Toaster richColors expand />
       </body>
