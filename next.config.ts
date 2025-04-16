@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['images.unsplash.com', 'loremflickr.com'], // Add the domain here
+    domains: ["images.unsplash.com", "loremflickr.com"], // Add the domain here
   },
 };
 

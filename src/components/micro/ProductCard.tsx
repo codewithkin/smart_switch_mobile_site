@@ -20,13 +20,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const router = useRouter();
 
   return (
-    <Card
-      onClick={() => {
-        // Redirect to product slug
-        router.push(`/shop/${product.slug}`);
-      }}
-      className="w-full sm:w-[300px] bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:cursor-pointer py-0"
-    >
+    <Card className="w-full sm:w-[300px] bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:cursor-pointer py-0">
       <CardHeader className="relative pb-4 pt-4">
         {/* Product Image */}
         <Image
@@ -72,6 +66,15 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           onClick={() => alert(`${product.name} added to cart!`)} // Placeholder for add-to-cart functionality
         >
           Add to Cart
+        </Button>
+        <Button
+          onClick={() => {
+            // Redirect to product slug
+            router.push(`/shop/${product.slug}`);
+          }}
+          variant="ghost"
+        >
+          More details
         </Button>
       </CardFooter>
     </Card>
