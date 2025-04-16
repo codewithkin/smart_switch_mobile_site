@@ -96,44 +96,45 @@ function ShopPage() {
   };
 
   return (
-    <section className="px-4 md:px-32 min-h-screen flex flex-col items-center">
-      <h2 className="heading mt-6">Shop Products</h2>
+    <section className="section min-h-screen flex flex-col items-center">
+      <article className="flex flex-col items-center">
+        <h2 className="heading mt-6">Shop Products</h2>
 
-      {/* Filters */}
-      <div className="flex flex-col md:flex-row gap-4 my-6 w-full max-w-3xl justify-center items-center">
-        {/* Category Filter */}
-        <Select onValueChange={handleCategoryChange}>
-          <SelectTrigger className="w-full md:w-[220px]">
-            <SelectValue placeholder="Filter by Category" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Categories</SelectLabel>
-              <SelectItem value="phones">Phones</SelectItem>
-              <SelectItem value="laptops">Laptops</SelectItem>
-              <SelectItem value="accessories">Accessories</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        {/* Filters */}
+        <div className="flex flex-col md:flex-row gap-4 my-6 w-full max-w-3xl justify-center items-center">
+          {/* Category Filter */}
+          <Select onValueChange={handleCategoryChange}>
+            <SelectTrigger className="w-full md:w-[220px]">
+              <SelectValue placeholder="Filter by Category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Categories</SelectLabel>
+                <SelectItem value="phones">Phones</SelectItem>
+                <SelectItem value="laptops">Laptops</SelectItem>
+                <SelectItem value="accessories">Accessories</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-        {/* Price Filter */}
-        <Select onValueChange={handlePriceChange}>
-          <SelectTrigger className="w-full md:w-[220px]">
-            <SelectValue placeholder="Filter by Price" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Price Ranges</SelectLabel>
-              <SelectItem value="under_100">Under $100</SelectItem>
-              <SelectItem value="100_200">$100 - $200</SelectItem>
-              <SelectItem value="200_400">$200 - $400</SelectItem>
-              <SelectItem value="400_800">$400 - $800</SelectItem>
-              <SelectItem value="flagship">$800 - $1,000</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-
+          {/* Price Filter */}
+          <Select onValueChange={handlePriceChange}>
+            <SelectTrigger className="w-full md:w-[220px]">
+              <SelectValue placeholder="Filter by Price" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Price Ranges</SelectLabel>
+                <SelectItem value="under_100">Under $100</SelectItem>
+                <SelectItem value="100_200">$100 - $200</SelectItem>
+                <SelectItem value="200_400">$200 - $400</SelectItem>
+                <SelectItem value="400_800">$400 - $800</SelectItem>
+                <SelectItem value="flagship">$800 - $1,000</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      </article>
       {/* Content */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
