@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Product } from "@/types";
 import ProductCard from "@/components/micro/ProductCard";
+import ProductCardSkeleton from "./components/ProductSkeleton";
+
 import {
   Select,
   SelectTrigger,
@@ -14,55 +16,76 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
+
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationPrevious,
   PaginationNext,
+  PaginationPrevious,
 } from "@/components/ui/pagination";
-import ProductCardSkeleton from "./components/ProductSkeleton";
 
 // Filter Type
 type FilterType = "category" | "price" | null;
+
+const fetchProducts = async (
+  filterType: FilterType,
+  filterValue: string | { min: number; max: number },
+  limit: number,
+  offset: number
+) => {
+  const base = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+  if (filterType === "category" && typeof filterValue === "string") {
+    const { data } = await axios.get(
+      `${base}/products/category/${filterValue}?limit=${limit}&offset=${offset}`
+    );
+    return data;
+  }
+
+  if (filterType === "price" && typeof filterValue === "object") {
+    const { data } = await axios.get(`${base}/products/price`, {
+      params: {
+        min: filterValue.min,
+        max: filterValue.max,
+        limit,
+        offset,
+      },
+    });
+    return data;
+  }
+
+  const { data } = await axios.get(
+    `${base}/products/?limit=${limit}&offset=${offset}`
+  );
+  return data;
+};
 
 function ShopPage() {
   const [filterType, setFilterType] = useState<FilterType>(null);
   const [filterValue, setFilterValue] = useState<
     string | { min: number; max: number }
   >("");
-  const [page, setPage] = useState(1);
-  const limit = 10;
+  const [limit] = useState(10);
+  const [offset, setOffset] = useState(0);
 
-  const offset = (page - 1) * limit;
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["products", filterType, filterValue, page],
-    queryFn: async () => {
-      let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products?limit=${limit}&offset=${offset}`;
-
-      if (filterType === "category" && typeof filterValue === "string") {
-        url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/category/${filterValue}?limit=${limit}&offset=${offset}`;
-      }
-
-      if (filterType === "price" && typeof filterValue === "object") {
-        url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/price?min=${filterValue.min}&max=${filterValue.max}&limit=${limit}&offset=${offset}`;
-      }
-
-      const res = await axios.get(url);
-      return res.data;
-    },
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["products", filterType, filterValue, limit, offset],
+    queryFn: () => fetchProducts(filterType, filterValue, limit, offset),
   });
 
   const handleCategoryChange = (value: string) => {
     setFilterType("category");
     setFilterValue(value);
-    setPage(1);
+    setOffset(0);
   };
 
   const handlePriceChange = (value: string) => {
     setFilterType("price");
-    setPage(1);
 
     switch (value) {
       case "under_100":
@@ -84,16 +107,18 @@ function ShopPage() {
         setFilterType(null);
         setFilterValue("");
     }
-  };
 
-  const totalPages = Math.ceil((data?.total || 0) / limit);
+    setOffset(0); // reset pagination
+  };
 
   return (
     <section className="section min-h-screen flex flex-col items-center">
       <article className="flex flex-col items-center">
         <h2 className="heading mt-6">Shop Products</h2>
 
+        {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 my-6 w-full max-w-3xl justify-center items-center">
+          {/* Category Filter */}
           <Select onValueChange={handleCategoryChange}>
             <SelectTrigger className="w-full md:w-[220px]">
               <SelectValue placeholder="Filter by Category" />
@@ -108,6 +133,7 @@ function ShopPage() {
             </SelectContent>
           </Select>
 
+          {/* Price Filter */}
           <Select onValueChange={handlePriceChange}>
             <SelectTrigger className="w-full md:w-[220px]">
               <SelectValue placeholder="Filter by Price" />
@@ -126,7 +152,7 @@ function ShopPage() {
         </div>
       </article>
 
-      {/* Content */}
+      {/* Product Grid */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -134,40 +160,40 @@ function ShopPage() {
           ))}
         </div>
       ) : error ? (
-        <p className="text-red-500">Failed to load products: {error.message}</p>
-      ) : (
+        <p className="text-red-500">
+          Failed to load products:{" "}
+          {error instanceof Error ? error.message : "Unknown error"}
+        </p>
+      ) : products?.length > 0 ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-            {data?.products?.map((product: Product) => (
+            {products.map((product: Product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
 
           {/* Pagination */}
-          <Pagination className="mt-8">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={() => page > 1 && setPage(page - 1)}
-                  className={page === 1 ? "opacity-50 pointer-events-none" : ""}
-                />
-              </PaginationItem>
-
-              <PaginationItem>
-                <span className="text-sm text-gray-500">{`Page ${page} of ${totalPages}`}</span>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationNext
-                  onClick={() => page < totalPages && setPage(page + 1)}
-                  className={
-                    page === totalPages ? "opacity-50 pointer-events-none" : ""
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <div className="mt-8">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() =>
+                      setOffset((prev) => Math.max(prev - limit, 0))
+                    }
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => setOffset((prev) => prev + limit)}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
         </>
+      ) : (
+        <p className="text-slate-500">No products found.</p>
       )}
     </section>
   );
