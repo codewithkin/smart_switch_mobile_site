@@ -4,6 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Product } from "@/types";
 import ProductCard from "@/components/micro/ProductCard";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type FilterType = "category" | "price" | null;
 
@@ -87,22 +94,34 @@ function ShopPage() {
       <h2 className="heading">Shop Products</h2>
 
       {/* Filters */}
-      <div className="flex gap-4 mb-6">
-        <select onChange={(e) => handleCategoryChange(e.target.value)} defaultValue="">
-          <option value="">All Categories</option>
-          <option value="phones">Phones</option>
-          <option value="laptops">Laptops</option>
-          <option value="accessories">Accessories</option>
-        </select>
+      <div className="flex flex-col md:flex-row gap-4 mb-6 w-full max-w-3xl">
+        {/* Category Filter */}
+        <Select onValueChange={handleCategoryChange}>
+          <SelectTrigger>
+            <SelectValue placeholder="All Categories" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All Categories</SelectItem>
+            <SelectItem value="phones">Phones</SelectItem>
+            <SelectItem value="laptops">Laptops</SelectItem>
+            <SelectItem value="accessories">Accessories</SelectItem>
+          </SelectContent>
+        </Select>
 
-        <select onChange={(e) => handlePriceChange(e.target.value)} defaultValue="">
-          <option value="">All Price Ranges</option>
-          <option value="under_100">Under $100</option>
-          <option value="100_200">$100 - $200</option>
-          <option value="200_400">$200 - $400</option>
-          <option value="400_800">$400 - $800</option>
-          <option value="flagship">$800 - $1,000</option>
-        </select>
+        {/* Price Filter */}
+        <Select onValueChange={handlePriceChange}>
+          <SelectTrigger>
+            <SelectValue placeholder="All Price Ranges" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All Prices</SelectItem>
+            <SelectItem value="under_100">Under $100</SelectItem>
+            <SelectItem value="100_200">$100 - $200</SelectItem>
+            <SelectItem value="200_400">$200 - $400</SelectItem>
+            <SelectItem value="400_800">$400 - $800</SelectItem>
+            <SelectItem value="flagship">$800 - $1,000</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Content */}
