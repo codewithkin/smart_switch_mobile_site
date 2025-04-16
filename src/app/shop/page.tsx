@@ -16,6 +16,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import ProductCardSkeleton from "./components/ProductSkeleton";
+import { useDebounce } from "use-debounce"; // Import use-debounce for filtering
 
 // Filter Type
 type FilterType = "category" | "price" | null;
@@ -26,14 +27,14 @@ const fetchProducts = async (
 ) => {
   if (filterType === "category" && typeof filterValue === "string") {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/smm/products/category/${filterValue}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/category/${filterValue}`,
     );
     return data;
   }
 
   if (filterType === "price" && typeof filterValue === "object") {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/smm/products/price`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/price`,
       {
         params: {
           min: filterValue.min,
@@ -48,8 +49,6 @@ const fetchProducts = async (
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/`,
   );
 
-  console.log("Data from axios: ", data);
-
   return data;
 };
 
@@ -59,13 +58,17 @@ function ShopPage() {
     string | { min: number; max: number }
   >("");
 
+  // Debounce the filter values to avoid unnecessary API calls
+  const [debouncedFilterValue] = useDebounce(filterValue, 500);
+
   const {
     data: products,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => fetchProducts(filterType, filterValue),
+    queryKey: ["products", debouncedFilterValue], // Query key now depends on debounced filter
+    queryFn: () => fetchProducts(filterType, debouncedFilterValue),
+    enabled: !!debouncedFilterValue || filterType === null, // Only fetch if filters are applied or no filter
   });
 
   const handleCategoryChange = (value: string) => {
@@ -94,7 +97,7 @@ function ShopPage() {
         break;
       default:
         setFilterType(null);
-        setFilterValue("");
+        setFilterValue(""); // Reset filter if value is invalid
     }
   };
 
@@ -138,6 +141,7 @@ function ShopPage() {
           </Select>
         </div>
       </article>
+
       {/* Content */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
@@ -157,12 +161,6 @@ function ShopPage() {
           ))}
         </div>
       )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-        {products?.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
     </section>
   );
 }
