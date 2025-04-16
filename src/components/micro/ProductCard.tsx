@@ -10,6 +10,7 @@ import {
 import { Product } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useCartStore } from "@/stores/useCartStore"; // Import the Zustand items store
 
 interface ProductCardProps {
   product: Product;
@@ -18,6 +19,17 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
   // Router for redirects
   const router = useRouter();
+
+  // Zustand state for items
+  const { items, addToCart } = useCartStore();
+
+  // Check if the product is already in the items
+  const isProductInCart = items.some((item) => item.id === product.id);
+
+  // Handle adding product to items
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
 
   return (
     <Card className="w-full sm:w-[300px] bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:cursor-pointer py-0">
@@ -62,11 +74,14 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
       <CardFooter className="p-4">
         {/* Add to Cart Button */}
         <Button
-          className="w-full bg-blue-600 text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 rounded-lg py-2 transition duration-200"
-          onClick={() => alert(`${product.name} added to cart!`)} // Placeholder for add-to-cart functionality
+          className="w-full focus:ring-2 focus:ring-slate-500 rounded-lg py-2 transition duration-200"
+          onClick={handleAddToCart}
+          variant={isProductInCart ? "secondary" : "default"}
         >
-          Add to Cart
+          {isProductInCart ? "Item already in cart" : "Add to Cart"}
         </Button>
+
+        {/* View More Details Button */}
         <Button
           onClick={() => {
             // Redirect to product slug
