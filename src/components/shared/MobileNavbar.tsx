@@ -61,7 +61,7 @@ function MobileNavbar() {
   return (
     <>
       {/* Visible when navbar is closed  */}
-      <nav className="flex justify-between md:hidden p-4 shadow-sm border-b">
+      <nav className="flex justify-between items-center md:hidden p-4 shadow-sm border-b">
         <h2 className="text-xl font-semibold">Smart Switch Mobile</h2>
         <ContentSheet />
       </nav>
