@@ -32,13 +32,13 @@ const fetchProducts = async (
   filterType: FilterType,
   filterValue: string | { min: number; max: number },
   limit: number,
-  offset: number
+  offset: number,
 ) => {
   const base = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   if (filterType === "category" && typeof filterValue === "string") {
     const { data } = await axios.get(
-      `${base}/products/category/${filterValue}?limit=${limit}&offset=${offset}`
+      `${base}/products/category/${filterValue}?limit=${limit}&offset=${offset}`,
     );
     return data;
   }
@@ -56,7 +56,7 @@ const fetchProducts = async (
   }
 
   const { data } = await axios.get(
-    `${base}/products/?limit=${limit}&offset=${offset}`
+    `${base}/products/?limit=${limit}&offset=${offset}`,
   );
   return data;
 };
@@ -164,36 +164,16 @@ function ShopPage() {
           Failed to load products:{" "}
           {error instanceof Error ? error.message : "Unknown error"}
         </p>
-      ) : products?.length > 0 ? (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-            {products.map((product: Product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div className="mt-8">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={() =>
-                      setOffset((prev) => Math.max(prev - limit, 0))
-                    }
-                  />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={() => setOffset((prev) => prev + limit)}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
-        </>
+      ) : products && products.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+          {products.map((product: Product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       ) : (
-        <p className="text-slate-500">No products found.</p>
+        <div className="text-gray-500 mt-10 text-center text-lg">
+          No products found with the selected filters.
+        </div>
       )}
     </section>
   );
