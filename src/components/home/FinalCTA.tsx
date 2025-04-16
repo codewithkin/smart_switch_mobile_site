@@ -9,7 +9,8 @@ function FinalCTA() {
       </h2>
       <p className="max-w-2xl mx-auto text-slate-600">
         From budget-friendly finds to flagship favorites, we’ve got something
-        for everyone. Browse our full shop and get your next device the smart way.
+        for everyone. Browse our full shop and get your next device the smart
+        way.
       </p>
       <Button asChild size="lg">
         <Link href="/shop">Start Shopping</Link>
