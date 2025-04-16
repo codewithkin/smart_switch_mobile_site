@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Product } from "@/types";
 import ProductCard from "@/components/micro/ProductCard";
-
 import {
   Select,
   SelectTrigger,
@@ -15,69 +14,55 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationNext,
+} from "@/components/ui/pagination";
 import ProductCardSkeleton from "./components/ProductSkeleton";
-import { useDebounce } from "use-debounce"; // Import use-debounce for filtering
 
 // Filter Type
 type FilterType = "category" | "price" | null;
-
-const fetchProducts = async (
-  filterType: FilterType,
-  filterValue: string | { min: number; max: number },
-) => {
-  if (filterType === "category" && typeof filterValue === "string") {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/category/${filterValue}`,
-    );
-    return data;
-  }
-
-  if (filterType === "price" && typeof filterValue === "object") {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/price`,
-      {
-        params: {
-          min: filterValue.min,
-          max: filterValue.max,
-        },
-      },
-    );
-    return data;
-  }
-
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/`,
-  );
-
-  return data;
-};
 
 function ShopPage() {
   const [filterType, setFilterType] = useState<FilterType>(null);
   const [filterValue, setFilterValue] = useState<
     string | { min: number; max: number }
   >("");
+  const [page, setPage] = useState(1);
+  const limit = 10;
 
-  // Debounce the filter values to avoid unnecessary API calls
-  const [debouncedFilterValue] = useDebounce(filterValue, 500);
+  const offset = (page - 1) * limit;
 
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["products", debouncedFilterValue], // Query key now depends on debounced filter
-    queryFn: () => fetchProducts(filterType, debouncedFilterValue),
-    enabled: !!debouncedFilterValue || filterType === null, // Only fetch if filters are applied or no filter
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products", filterType, filterValue, page],
+    queryFn: async () => {
+      let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products?limit=${limit}&offset=${offset}`;
+
+      if (filterType === "category" && typeof filterValue === "string") {
+        url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/category/${filterValue}?limit=${limit}&offset=${offset}`;
+      }
+
+      if (filterType === "price" && typeof filterValue === "object") {
+        url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/price?min=${filterValue.min}&max=${filterValue.max}&limit=${limit}&offset=${offset}`;
+      }
+
+      const res = await axios.get(url);
+      return res.data;
+    },
   });
 
   const handleCategoryChange = (value: string) => {
     setFilterType("category");
     setFilterValue(value);
+    setPage(1);
   };
 
   const handlePriceChange = (value: string) => {
     setFilterType("price");
+    setPage(1);
 
     switch (value) {
       case "under_100":
@@ -97,18 +82,18 @@ function ShopPage() {
         break;
       default:
         setFilterType(null);
-        setFilterValue(""); // Reset filter if value is invalid
+        setFilterValue("");
     }
   };
+
+  const totalPages = Math.ceil((data?.total || 0) / limit);
 
   return (
     <section className="section min-h-screen flex flex-col items-center">
       <article className="flex flex-col items-center">
         <h2 className="heading mt-6">Shop Products</h2>
 
-        {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 my-6 w-full max-w-3xl justify-center items-center">
-          {/* Category Filter */}
           <Select onValueChange={handleCategoryChange}>
             <SelectTrigger className="w-full md:w-[220px]">
               <SelectValue placeholder="Filter by Category" />
@@ -123,7 +108,6 @@ function ShopPage() {
             </SelectContent>
           </Select>
 
-          {/* Price Filter */}
           <Select onValueChange={handlePriceChange}>
             <SelectTrigger className="w-full md:w-[220px]">
               <SelectValue placeholder="Filter by Price" />
@@ -150,16 +134,40 @@ function ShopPage() {
           ))}
         </div>
       ) : error ? (
-        <p className="text-red-500">
-          Failed to load products:{" "}
-          {error instanceof Error ? error.message : "Unknown error"}
-        </p>
+        <p className="text-red-500">Failed to load products: {error.message}</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-          {products?.map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            {data?.products?.map((product: Product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <Pagination className="mt-8">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => page > 1 && setPage(page - 1)}
+                  className={page === 1 ? "opacity-50 pointer-events-none" : ""}
+                />
+              </PaginationItem>
+
+              <PaginationItem>
+                <span className="text-sm text-gray-500">{`Page ${page} of ${totalPages}`}</span>
+              </PaginationItem>
+
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => page < totalPages && setPage(page + 1)}
+                  className={
+                    page === totalPages ? "opacity-50 pointer-events-none" : ""
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </>
       )}
     </section>
   );
