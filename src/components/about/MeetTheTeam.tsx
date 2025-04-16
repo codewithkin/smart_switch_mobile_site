@@ -20,7 +20,7 @@ const teamMembers = [
 function MeetTheTeam() {
   return (
     <motion.section
-      className="section space-y-6"
+      className="section"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

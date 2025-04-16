@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 function WhatIsSmartSwitchMobile() {
   return (
     <motion.section
-      className="section space-y-6"
+      className="section mt-20 md:mt-40"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

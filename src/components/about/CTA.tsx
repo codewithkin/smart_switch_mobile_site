@@ -11,14 +11,16 @@ function CTA() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <h2 className="text-3xl font-bold text-slate-800">
-        Ready to Make the Smart Switch?
-      </h2>
-      <p className="text-slate-600 max-w-2xl mx-auto">
-        From our local Mutare store to your doorstep, we’ve got all the latest
-        devices waiting for you. Don’t wait — explore our full collection and
-        shop today!
-      </p>
+      <article className="flex flex-col gap-2 justify-center items-center">
+        <h2 className="text-3xl font-bold text-slate-800">
+          Ready to Make the Smart Switch?
+        </h2>
+        <p className="text-slate-600 max-w-2xl mx-auto">
+          From our local Mutare store to your doorstep, we’ve got all the latest
+          devices waiting for you. Don’t wait — explore our full collection and
+          shop today!
+        </p>
+      </article>
       <Button size="lg" variant="default" asChild>
         <Link href="/shop">Start Shopping</Link>
       </Button>
