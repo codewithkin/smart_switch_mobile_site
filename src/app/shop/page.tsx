@@ -15,17 +15,18 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
+import ProductCardSkeleton from "./components/ProductSkeleton";
 
 // Filter Type
 type FilterType = "category" | "price" | null;
 
 const fetchProducts = async (
   filterType: FilterType,
-  filterValue: string | { min: number; max: number }
+  filterValue: string | { min: number; max: number },
 ) => {
   if (filterType === "category" && typeof filterValue === "string") {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/smm/products/category/${filterValue}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/smm/products/category/${filterValue}`,
     );
     return data;
   }
@@ -38,13 +39,13 @@ const fetchProducts = async (
           min: filterValue.min,
           max: filterValue.max,
         },
-      }
+      },
     );
     return data;
   }
 
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/smm/products/`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/`,
   );
   return data;
 };
@@ -134,12 +135,23 @@ function ShopPage() {
       </div>
 
       {/* Content */}
-      {isLoading && <p>Loading products...</p>}
-      {error && (
+      {isLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <ProductCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : error ? (
         <p className="text-red-500">
           Failed to load products:{" "}
           {error instanceof Error ? error.message : "Unknown error"}
         </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+          {products?.map((product: Product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
