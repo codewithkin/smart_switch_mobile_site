@@ -92,15 +92,18 @@ function CheckoutPage() {
       <p className="text-gray-600 mb-6">Here’s your receipt</p>
 
       <Card className="w-full max-w-xl">
-        <CardHeader>
-          <CardTitle className="text-xl">Receipt #{checkoutData.id}</CardTitle>
+        <CardHeader className="text-center">
+          <h2 className="text-2xl font-bold">Smart Switch Mobile</h2>
+          <CardTitle className="text-xl mt-2">
+            Receipt number:{" "}
+            <span className="text-slate-500 text-sm">{checkoutData.id}</span>
+          </CardTitle>
         </CardHeader>
 
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
             Date: {checkoutData.createdAt}
           </p>
-          <p className="text-lg font-medium">Total: ${checkoutData.total}</p>
 
           <div>
             <h4 className="font-semibold mb-2">Items:</h4>
@@ -114,9 +117,17 @@ function CheckoutPage() {
             </ul>
           </div>
 
+          <h3 className="text-xl font-bold text-center text-primary flex w-full justify-between items-center">
+            <span>Total:</span> <span>${checkoutData.total}</span>
+          </h3>
+
           <Button className="mt-4" onClick={handleDownloadReceipt}>
             Download Receipt
           </Button>
+
+          <div className="pt-6 border-t text-center text-sm text-slate-500">
+            123 Herbert Chitepo Street, Mutare, Zimbabwe
+          </div>
         </CardContent>
       </Card>
     </section>
