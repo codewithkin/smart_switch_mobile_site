@@ -11,6 +11,7 @@ import { Product } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/stores/useCartStore"; // Import the Zustand items store
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
@@ -71,7 +72,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </div>
       </CardContent>
 
-      <CardFooter className="p-4">
+      <CardFooter className="p-4 flex flex-col gap-2">
         {/* Add to Cart Button */}
         <Button
           className="w-full focus:ring-2 focus:ring-slate-500 rounded-lg py-2 transition duration-200"
@@ -82,14 +83,8 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </Button>
 
         {/* View More Details Button */}
-        <Button
-          onClick={() => {
-            // Redirect to product slug
-            router.push(`/shop/${product.slug}`);
-          }}
-          variant="ghost"
-        >
-          More details
+        <Button className="w-full rounded-lg py-2" variant="ghost">
+          <Link href={`/shop/${product.slug}`}>More details</Link>
         </Button>
       </CardFooter>
     </Card>
