@@ -74,16 +74,14 @@ function ShopPage() {
   const [limit] = useState(10);
   const [offset, setOffset] = useState(0);
 
-  const {
-    data,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["products", filterType, filterValue, limit, offset],
     queryFn: () => fetchProducts(filterType, filterValue, limit, offset),
   });
 
-  console.log("Products: ", data.products);
+  if (data) {
+    console.log("Products: ", data.products);
+  }
 
   const handleCategoryChange = (value: string) => {
     setFilterType("category");
