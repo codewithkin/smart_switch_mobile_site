@@ -6,7 +6,6 @@ import axios from "axios";
 import { Product } from "@/types";
 import ProductCard from "@/components/micro/ProductCard";
 import ProductCardSkeleton from "./components/ProductSkeleton";
-
 import {
   Select,
   SelectTrigger,
@@ -16,7 +15,6 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
-
 import {
   Pagination,
   PaginationContent,
@@ -25,7 +23,6 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-// Filter Type
 type FilterType = "category" | "price" | null;
 
 const fetchProducts = async (
@@ -46,12 +43,7 @@ const fetchProducts = async (
 
   if (filterType === "price" && typeof filterValue === "object") {
     const { data } = await axios.get(`${base}/products/price`, {
-      params: {
-        min: filterValue.min,
-        max: filterValue.max,
-        limit,
-        offset,
-      },
+      params: { min: filterValue.min, max: filterValue.max, limit, offset },
       headers: { "Cache-Control": "no-cache" },
     });
     return data;
@@ -59,9 +51,7 @@ const fetchProducts = async (
 
   const { data } = await axios.get(
     `${base}/products/?limit=${limit}&offset=${offset}`,
-    {
-      headers: { "Cache-Control": "no-cache" },
-    },
+    { headers: { "Cache-Control": "no-cache" } },
   );
   return data;
 };
@@ -79,10 +69,6 @@ function ShopPage() {
     queryFn: () => fetchProducts(filterType, filterValue, limit, offset),
   });
 
-  if (data) {
-    console.log("Products: ", data.products);
-  }
-
   const handleCategoryChange = (value: string) => {
     setFilterType("category");
     setFilterValue(value);
@@ -91,7 +77,6 @@ function ShopPage() {
 
   const handlePriceChange = (value: string) => {
     setFilterType("price");
-
     switch (value) {
       case "under_100":
         setFilterValue({ min: 0, max: 100 });
@@ -112,9 +97,12 @@ function ShopPage() {
         setFilterType(null);
         setFilterValue("");
     }
-
-    setOffset(0); // reset pagination
+    setOffset(0);
   };
+
+  const totalProducts = data?.total || 0;
+  const currentPage = Math.floor(offset / limit) + 1;
+  const totalPages = Math.ceil(totalProducts / limit);
 
   return (
     <section className="section min-h-screen flex flex-col items-center">
@@ -157,7 +145,7 @@ function ShopPage() {
         </div>
       </article>
 
-      {/* Product Grid */}
+      {/* Products */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -169,12 +157,47 @@ function ShopPage() {
           Failed to load products:{" "}
           {error instanceof Error ? error.message : "Unknown error"}
         </p>
-      ) : data.products && data?.products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-          {data.products.map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+      ) : data?.products?.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            {data.products.map((product: Product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <Pagination className="my-10">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => setOffset((prev) => Math.max(prev - limit, 0))}
+                  className={
+                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                  }
+                />
+              </PaginationItem>
+
+              <div className="text-sm mx-4 mt-2 text-muted-foreground">
+                Page {currentPage} of {totalPages}
+              </div>
+
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => {
+                    if (offset + limit < totalProducts) {
+                      setOffset((prev) => prev + limit);
+                    }
+                  }}
+                  className={
+                    offset + limit >= totalProducts
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </>
       ) : (
         <div className="text-gray-500 mt-10 text-center text-lg">
           No products found with the selected filters.
