@@ -126,7 +126,7 @@ function CheckoutPage() {
           </Button>
 
           <div className="pt-6 border-t text-center text-sm text-slate-500">
-            123 Herbert Chitepo Street, Mutare, Zimbabwe
+            Shop #18 2nd Floor Meikles Market, Mutare, Zimbabwe
           </div>
         </CardContent>
       </Card>
