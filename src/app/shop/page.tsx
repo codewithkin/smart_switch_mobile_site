@@ -75,13 +75,15 @@ function ShopPage() {
   const [offset, setOffset] = useState(0);
 
   const {
-    data: products,
+    data,
     isLoading,
     error,
   } = useQuery({
     queryKey: ["products", filterType, filterValue, limit, offset],
     queryFn: () => fetchProducts(filterType, filterValue, limit, offset),
   });
+
+  console.log("Products: ", data.products);
 
   const handleCategoryChange = (value: string) => {
     setFilterType("category");
@@ -169,9 +171,9 @@ function ShopPage() {
           Failed to load products:{" "}
           {error instanceof Error ? error.message : "Unknown error"}
         </p>
-      ) : products && products.length > 0 ? (
+      ) : data.products && data?.products.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-          {products.map((product: Product) => (
+          {data.products.map((product: Product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
