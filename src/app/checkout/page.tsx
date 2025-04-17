@@ -3,11 +3,11 @@
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Spinner from "@/components/ui/spinner"; // Custom spinner or replace with shadcn fallback
 import { saveAs } from "file-saver";
+import { formatDate } from "date-fns";
 
 function CheckoutPage() {
   const searchParams = useSearchParams();
@@ -102,7 +102,7 @@ function CheckoutPage() {
 
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Date: {checkoutData.createdAt}
+            Date: {formatDate(checkoutData.createdAt, "yyyy-MM-dd")}
           </p>
 
           <div>
