@@ -39,6 +39,7 @@ const fetchProducts = async (
   if (filterType === "category" && typeof filterValue === "string") {
     const { data } = await axios.get(
       `${base}/products/category/${filterValue}?limit=${limit}&offset=${offset}`,
+      { headers: { "Cache-Control": "no-cache" } },
     );
     return data;
   }
@@ -51,12 +52,16 @@ const fetchProducts = async (
         limit,
         offset,
       },
+      headers: { "Cache-Control": "no-cache" },
     });
     return data;
   }
 
   const { data } = await axios.get(
     `${base}/products/?limit=${limit}&offset=${offset}`,
+    {
+      headers: { "Cache-Control": "no-cache" },
+    },
   );
   return data;
 };
@@ -178,5 +183,7 @@ function ShopPage() {
     </section>
   );
 }
+
+export const dynamic = "force-dynamic";
 
 export default ShopPage;
