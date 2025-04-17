@@ -49,7 +49,7 @@ function ContentSheet() {
         <SheetFooter>
           {/* CTA */}
           <Button variant="default" size="lg" asChild>
-            <Link href="/shop">Show Now</Link>
+            <Link href="/shop">Shop Now</Link>
           </Button>
         </SheetFooter>
       </SheetContent>
