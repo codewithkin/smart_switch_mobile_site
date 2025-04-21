@@ -5,11 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Spinner from "@/components/ui/spinner"; // Custom spinner or replace with shadcn fallback
+import Spinner from "@/components/ui/spinner";
 import { saveAs } from "file-saver";
-import { formatDate } from "date-fns";
+import { format } from "date-fns";
 
-function CheckoutPage() {
+export default function CheckoutClientPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
@@ -20,14 +20,12 @@ function CheckoutPage() {
   } = useQuery({
     queryKey: ["checkout", id],
     queryFn: async (): Promise<any> => {
-      console.log("Checkout id: ", id);
-
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkout/${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkout/${id}`
       );
       return res.data;
     },
-    enabled: !!id, // only fetch if id is present
+    enabled: !!id,
   });
 
   const handleDownloadReceipt = () => {
@@ -42,7 +40,7 @@ function CheckoutPage() {
       ${checkoutData.items
         .map(
           (item: any) =>
-            `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`,
+            `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
         )
         .join("\n")}
 
@@ -102,7 +100,7 @@ function CheckoutPage() {
 
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Date: {formatDate(checkoutData.createdAt, "yyyy-MM-dd")}
+            Date: {format(new Date(checkoutData.createdAt), "yyyy-MM-dd")}
           </p>
 
           <div>
@@ -133,5 +131,3 @@ function CheckoutPage() {
     </section>
   );
 }
-
-export default CheckoutPage;
